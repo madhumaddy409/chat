@@ -47,7 +47,7 @@
         });
 
         websocket = new WebSocket(
-            'ws://' + window.location.host +
+            'wss://' + window.location.host +
             '/chat/{{ request.resolver_match.kwargs.chatname }}/');
 
         websocket.onmessage = function(e) {
