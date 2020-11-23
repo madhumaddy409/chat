@@ -46,7 +46,8 @@
             $('#message, #send-message').removeClass('d-none');
         });
 
-        
+        var loc = window.location;
+
         var wsStart = 'ws://';
         if (loc.protocol == 'https:') {
             wsStart = 'wss://'
