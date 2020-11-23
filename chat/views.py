@@ -9,6 +9,14 @@ from django.views.generic.base import TemplateView
 from chat.models import Message
 
 
+from django.shortcuts import render, redirect
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+from chat.models import Document
+from chat.forms import DocumentForm
+
+
 class HomeView(LoginRequiredMixin, TemplateView):
 
     template_name = 'home.html'
@@ -55,3 +63,29 @@ class MessagesAPIView(View):
         ).order_by('date_created').values('username', 'message', 'date_created')
 
         return JsonResponse(list(result), safe=False)
+
+
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'simple_upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'simple_upload.html')
+
+
+
+def model_form_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = DocumentForm()
+    return render(request, 'model_form_upload.html', {
+        'form': form
+    })

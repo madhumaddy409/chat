@@ -13,3 +13,9 @@ class Message(models.Model):
 
     def __str__(self):
         return '{} to {}'.format(self.sender.username, self.receiver.username)
+
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='chat/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

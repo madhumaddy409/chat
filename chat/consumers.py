@@ -3,11 +3,15 @@ import json
 from asgiref.sync import async_to_sync
 from django.contrib.auth.models import User
 from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 
 from chat.models import Message
 
 
 class ChatConsumer(WebsocketConsumer):
+# class ChatConsumer(AsyncWebsocketConsumer):
+
+
 
     def connect(self):
         """
