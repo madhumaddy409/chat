@@ -46,15 +46,14 @@
             $('#message, #send-message').removeClass('d-none');
         });
 
-        var loc = window.location;
-
-        var wsStart = 'ws://';
-        if (loc.protocol == 'https:') {
-            wsStart = 'wss://'
-        }
+        // var loc = window.location;
+        // var wsStart = 'ws://';
+        // if (loc.protocol == 'https:') {
+        //     wsStart = 'wss://'
+        // }
 
         websocket = new WebSocket(
-            wsStart + window.location.host +
+            'wss://' + window.location.host +
             '/ws/chat/{{ request.resolver_match.kwargs.chatname }}/');
 
         websocket.onmessage = function(e) {

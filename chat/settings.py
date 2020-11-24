@@ -150,10 +150,31 @@ LOGOUT_REDIRECT_URL = 'login'
 #         },
 #     },
 # }
+
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': "channels.layers.InMemoryChannelLayer",
+        
+#     },
+# }
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
+
+REDIS_URL = 'redis://redistogo:ee4c3085526ceabb56f3d2e41cf34fd4@pickerel.redistogo.com:9039/'
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer",
-        
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [os.environ.get('REDIS_URL','redis://localhost:6379')],
+        },
     },
 }
 
